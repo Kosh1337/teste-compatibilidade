@@ -11,15 +11,15 @@ if (!roomId) {
 
 const questions = [
   "Quando você pensa em nós dois, o que você mais espera que a gente construa juntos?",
-  "O que mais te incomoda em um relacionamento?",
-  "O que você considera indispensável em alguém?",
-  "O que você precisa para se sentir seguro emocionalmente?",
-  "Como você reage quando está com ciúmes?",
-  "O que você faz quando está magoado?",
-  "Qual é seu maior medo dentro de um relacionamento?",
-  "Como você demonstra carinho?",
-  "O que você não tolera de jeito nenhum?",
-  "Se algo desse errado entre nós, o que você faria?"
+  "O que eu faço que te deixa mais feliz, mesmo que eu nem perceba?",
+  "Existe algo em mim que te dá medo de se entregar totalmente?",
+  "Quando a gente briga ou fica estranho, o que passa na sua cabeça que você nem sempre fala?",
+  "Você sente que pode ser 100% você comigo? Se não, o que te trava?",
+  "Se um dia eu estivesse distante, como você reagiria de verdade?",
+  "O que você mais admira em mim, mas talvez nunca tenha dito claramente?",
+  "Se alguém perguntasse por que você escolheu ficar comigo, o que você responderia?",
+  "Qual é o seu maior medo quando pensa no futuro da gente?",
+  "Se você pudesse me pedir uma coisa para melhorar entre nós, qual seria?"
 ];
 
 let currentQuestion = 0;
@@ -170,3 +170,4 @@ function mostrarRespostas(usersObj) {
 }
 
 pedirNome();
+
