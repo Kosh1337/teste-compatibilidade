@@ -94,21 +94,25 @@ async function nextQuestion() {
     showQuestion(currentQuestion);
   } else {
     await salvarNoFirestore();
-    mostrarResultado();
+    mostrarAguardando();
   }
 }
 
 async function salvarNoFirestore() {
-  await setDoc(doc(db, "casais", roomId), {
-    users: {
-      [userName]: {
-        respostas
+  await setDoc(
+    doc(db, "casais", roomId),
+    {
+      users: {
+        [userName]: {
+          respostas
+        }
       }
-    }
-  }, { merge: true });
+    },
+    { merge: true }
+  );
 }
 
-function mostrarResultado() {
+function mostrarAguardando() {
   container.innerHTML = `
     <h2>Respostas enviadas</h2>
     <p>Aguardando a outra pessoa responder.</p>
@@ -119,14 +123,50 @@ onSnapshot(doc(db, "casais", roomId), (snapshot) => {
   const data = snapshot.data();
   if (!data?.users) return;
 
-  const users = Object.keys(data.users);
+  const nomes = Object.keys(data.users);
 
-  if (users.length === 2) {
+  if (nomes.length === 2) {
     container.innerHTML = `
       <h2>Ambos responderam.</h2>
-      <p>Agora é possível calcular compatibilidade.</p>
+      <button id="verRespostasBtn">Veja aqui as respostas</button>
+      <div id="respostasContainer"></div>
     `;
+
+    document
+      .getElementById("verRespostasBtn")
+      .addEventListener("click", () => {
+        mostrarRespostas(data.users);
+      });
   }
 });
+
+function mostrarRespostas(usersObj) {
+  const nomes = Object.keys(usersObj);
+  const user1 = usersObj[nomes[0]];
+  const user2 = usersObj[nomes[1]];
+
+  const respostasContainer = document.getElementById("respostasContainer");
+
+  let html = `<h3>${nomes[0]} x ${nomes[1]}</h3>`;
+
+  for (let i = 0; i < user1.respostas.length; i++) {
+    html += `
+      <div style="margin-bottom:20px;">
+        <strong>Pergunta ${i + 1}</strong><br><br>
+
+        <b>${nomes[0]}:</b><br>
+        ${user1.respostas[i].resposta}<br>
+        Importância: ${user1.respostas[i].importancia}<br><br>
+
+        <b>${nomes[1]}:</b><br>
+        ${user2.respostas[i].resposta}<br>
+        Importância: ${user2.respostas[i].importancia}
+      </div>
+      <hr>
+    `;
+  }
+
+  respostasContainer.innerHTML = html;
+}
 
 pedirNome();
