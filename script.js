@@ -123,9 +123,9 @@ onSnapshot(doc(db, "casais", roomId), (snapshot) => {
   const data = snapshot.data();
   if (!data?.users) return;
 
-  const nomes = Object.keys(data.users);
+  const nomesOrdenados = Object.keys(data.users).sort();
 
-  if (nomes.length === 2) {
+  if (nomesOrdenados.length === 2) {
     container.innerHTML = `
       <h2>Ambos responderam.</h2>
       <button id="verRespostasBtn">Veja aqui as respostas</button>
@@ -135,30 +135,30 @@ onSnapshot(doc(db, "casais", roomId), (snapshot) => {
     document
       .getElementById("verRespostasBtn")
       .addEventListener("click", () => {
-        mostrarRespostas(data.users);
+        mostrarRespostas(data.users, nomesOrdenados);
       });
   }
 });
 
-function mostrarRespostas(usersObj) {
-  const nomes = Object.keys(usersObj);
-  const user1 = usersObj[nomes[0]];
-  const user2 = usersObj[nomes[1]];
+function mostrarRespostas(usersObj, nomesOrdenados) {
+  const user1 = usersObj[nomesOrdenados[0]];
+  const user2 = usersObj[nomesOrdenados[1]];
 
   const respostasContainer = document.getElementById("respostasContainer");
 
-  let html = `<h3>${nomes[0]} x ${nomes[1]}</h3>`;
+  let html = `<h3>${nomesOrdenados[0]} x ${nomesOrdenados[1]}</h3>`;
 
   for (let i = 0; i < user1.respostas.length; i++) {
     html += `
       <div style="margin-bottom:20px;">
-        <strong>Pergunta ${i + 1}</strong><br><br>
+        <strong>Pergunta ${i + 1}</strong><br>
+        ${user1.respostas[i].pergunta}<br><br>
 
-        <b>${nomes[0]}:</b><br>
+        <b>${nomesOrdenados[0]}:</b><br>
         ${user1.respostas[i].resposta}<br>
         Importância: ${user1.respostas[i].importancia}<br><br>
 
-        <b>${nomes[1]}:</b><br>
+        <b>${nomesOrdenados[1]}:</b><br>
         ${user2.respostas[i].resposta}<br>
         Importância: ${user2.respostas[i].importancia}
       </div>
@@ -170,4 +170,3 @@ function mostrarRespostas(usersObj) {
 }
 
 pedirNome();
-
