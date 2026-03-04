@@ -1,0 +1,109 @@
+/* ====================================== */
+/*              style.css                 */
+/* ====================================== */
+
+:root {
+  --bg: #f8f6f2;
+  --card: #ffffff;
+  --text: #333;
+  --accent: #d6cbbf;
+  --accent-hover: #c3b6a7;
+}
+
+body.dark {
+  --bg: #1e1e1e;
+  --card: #2a2a2a;
+  --text: #f1f1f1;
+  --accent: #3a3a3a;
+  --accent-hover: #4a4a4a;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: 0.4s ease;
+}
+
+#app {
+  width: 92%;
+  max-width: 650px;
+  transition: opacity 0.3s ease;
+}
+
+.card {
+  background: var(--card);
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.07);
+  animation: fadeSlide 0.4s ease;
+}
+
+textarea, input[type="text"] {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  resize: none;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  transition: 0.3s;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+#musicBtn, #darkModeBtn {
+  position: fixed;
+  top: 15px;
+  padding: 8px 12px;
+}
+
+#musicBtn { right: 15px; }
+#darkModeBtn { right: 100px; }
+
+.progress-bar {
+  height: 12px;
+  background: #eaeaea;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 1s ease;
+}
+
+.pergunta-progresso {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
